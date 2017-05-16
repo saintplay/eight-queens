@@ -1,0 +1,12 @@
+#chess-application
+    #hero-container.centered-container
+        #brand-container
+        #stats-container
+    #controls-container.centered-container
+
+    #table-container.centered-container.flex-container.flex-center
+        table#chess-table
+            each fila in [1, 2, 3, 4, 5, 6, 7, 8]
+                tr
+                    each columna in [1, 2, 3, 4, 5, 6, 7, 8]
+                        td= "("+fila+" , "+columna+")"
