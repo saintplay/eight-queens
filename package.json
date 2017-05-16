@@ -4,16 +4,24 @@
   "description": "El famoso puzzle de las 8 reinas, pero deber�s jugar contra un I.A.",
   "main": "index.js",
   "dependencies": {
+    "autoprefixer": "^7.1.0",
     "coffeescript": "^1.12.6",
+    "node-sass": "^4.5.2",
+    "postcss-cli": "^4.0.0",
     "pug": "^2.0.0-rc.1"
   },
   "devDependencies": {
-    "node-sass": "^4.5.2",
+    "concurrently": "^3.4.0",
     "nodemon": "^1.11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sass-build": "node-sass --include-path sass src/sass/main.sass dist/css/main.css"
+    "sass-build": "node-sass --include-path sass --output-style compressed src/sass/main.sass src/sass/main.no-prefixed.css && postcss --use autoprefixer -o dist/css/main.css src/sass/main.no-prefixed.css && rm src/sass/main.no-prefixed.css",
+    "pug-build": "pug --out dist/ src/pug/index.pug",
+    "sass-watch": "nodemon -e sass -x \"npm run sass-build\"",
+    "pug-watch": "nodemon -e pug -x \"npm run pug-build\"",
+    "build-all": "concurrently \"npm run pug-build\" \"npm run sass-build\"",
+    "start-coding": "concurrently --kill-others \"browser-sync start --server --startPath dist --files dist/index.html dist/css/main.css --no-notify --no-ui\" \"nodemon -e pug,sass -x \\\"npm run build-all\\\""
   },
   "repository": {
     "type": "git",
