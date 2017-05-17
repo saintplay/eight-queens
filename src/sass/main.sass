@@ -1,5 +1,30 @@
-$color-a: #fdfdfd
-$color-b: #dadada
+// Colores
+$white: #FDFDFD
+$gray: #EFEFEF
+$turquoise: #6AC3C6
+$blue: #6D9FCB
+$red: #FA566C
+$fuchsia: #EE038C
+$black: #3B3B3B
+
+// Tamanios
+$hero_height: 240px
+$stats_height: 148px
+$roulette_size: 100px
+
+$chess_cell_size: 75px
+
+// Sombras
+$sombra_bottom: 0 3px 6px -2px rgba(0,0,0,0.16), 0 3px 6px -2px rgba(0,0,0,0.23)
+$sombra_circulo: 0 6px 10px rgba(0,0,0,0.25), 0 4px 8px rgba(0,0,0,0.22)
+
+// Fuentes
+$sans-base: 'Roboto', sans-serif;
+
+// Mixins
+@mixin zIndex($level)
+    position: relative
+    z-index: $level
 
 html, body
     height: 100%
@@ -7,19 +32,102 @@ html, body
     padding: 0px
 
 #chess-application
+    position: relative
     height: 100%
-    background-color: $color-b
+    background-color: $gray
+    background-image: url("../img/playstation-pattern.png")
+    font-family: $sans-base
 
 #hero-container
-    height: 240px
-    background-color: red
+    position: relative
+    height: $hero_height
+    background: url("../img/hero.png")
+    background-size: cover
+    &:before
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        background: linear-gradient(180deg, $turquoise, $blue)
+        opacity: 0.8
+
+#brand-container
+    @include zIndex(30)
+    height: $hero_height - $stats_height
+
+#stats-container
+    @include zIndex(30)
+    height: $stats_height
+    justify-content: space-around
+
+.fs-title
+    text-align: center
+    font-family: 'Source Sans Pro'
+    font-weight: 600
+    color: $white
+.fs-icon
+    margin-top: 10px
+    width: 100px
+    height: 100px
+    background-color: $white
+#robot-icon
+    mask: url(../img/robot.svg) no-repeat center
+#human-icon
+    mask: url(../img/human.svg) no-repeat center
+.fs-puntaje
+    text-align: center
+    font-family: 'Source Sans Pro'
+    color: $white
+
+#roulette-container
+    position: absolute
+    z-index: 40
+    top: $hero_height
+    left: 0
+    right: 0
+    transform: translateY(-50%)
+    height: $roulette_size
+    width: $roulette_size
+    margin-left: auto
+    margin-right: auto
+    border-radius: 50%
+    background: linear-gradient(180deg, $red, $fuchsia)
+    box-shadow: $sombra_circulo
+    text-align: center
+    vertical-align: middle
 
 #controls-container
+    @include zIndex(20)
     height: 80px
-    background-color: tomato
+    background-color: $white
+    box-shadow: $sombra_bottom
+    justify-content: space-around
+
+.control-wrapper
+    margin: 20px
+
+#rollback-wrapper
+    width: 48px
+    height: 48px
+    background-color: $gray
+
+#time-wrapper
+    vertical-align: middle
+    font-family: $sans-base
+#time-counter
+    font-size: 3em
+    color: $turquoise
+    font-weight: 300
+#time-unit
+    font-size: 1.2em
+    color: $black
 
 #table-container
-    background-color: $color-b
+    position: relative
+    z-index: 10
+    background-color: transparent
 
 .centered-container
     width: 600px
@@ -28,22 +136,29 @@ html, body
 
 #chess-table
     border: 0px
+    background-color: $white
+    border-spacing: 0px
 
 tr
     border: 0px
 
 td
-    height: 50px
-    width: 50px
+    height: $chess_cell_size
+    width: $chess_cell_size
     text-align: center
 
 tr
     &:nth-child(odd) td:nth-child(odd), &:nth-child(even) td:nth-child(even)
-        background: $color-a
+        background: $gray
 
 .flex-container
     display: flex
 
 .flex-center
+    display: flex
     align-items: center
     justify-content: center
+
+@each $size in 100 150 200
+    .size-fixer-#{$size}
+        width: $size

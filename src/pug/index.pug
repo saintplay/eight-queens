@@ -2,25 +2,35 @@ doctype html
 html(lang="es")
   head
     title="8Queens"  
-    link(
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"
-      rel="stylesheet"
-    )
-    link(
-      href="css/main.css"
-      rel="stylesheet"
-    )
+    link(href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet")
+    link(href="css/main.css" rel="stylesheet")
   body
     #chess-application
       #hero-container.centered-container
         #brand-container
-          h1="8Queens"
-        #stats-container
-      #controls-container.centered-container
-
-      #table-container.centered-container.flex-container.flex-center
+        #stats-container.flex-container
+          #human-box.player-box
+            .fs-title.active="JUGADOR"
+            #human-icon.fs-icon
+            .fs-puntaje="30pts"
+          .size-fixer-200
+          #robot-box.player-box
+            .fs-title="MAQUINA"
+            #robot-icon.fs-icon
+            .fs-puntaje="20pts"
+      #roulette-container
+      #controls-container.centered-container.flex-container
+        #time-wrapper.control-wrapper.flex-center
+          span
+            span#time-counter="38"
+            span#time-unit="s"
+        .size-fixer-200
+        #rollback-wrapper.control-wrapper
+      #table-container.centered-container.flex-center
         table#chess-table
           each fila in [1, 2, 3, 4, 5, 6, 7, 8]
             tr
               each columna in [1, 2, 3, 4, 5, 6, 7, 8]
-                td= "("+fila+" , "+columna+")"
+                td
