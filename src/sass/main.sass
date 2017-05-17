@@ -26,6 +26,9 @@ $sans-base: 'Roboto', sans-serif;
     position: relative
     z-index: $level
 
+// Partials
+@import 'icons'
+
 html, body
     height: 100%
     margin: 0px
@@ -68,14 +71,10 @@ html, body
     font-weight: 600
     color: $white
 .fs-icon
-    margin-top: 10px
-    width: 100px
-    height: 100px
-    background-color: $white
-#robot-icon
-    mask: url(../img/robot.svg) no-repeat center
-#human-icon
-    mask: url(../img/human.svg) no-repeat center
+    text-align: center
+    color: $white
+    font-size: 90px
+    margin: 10px
 .fs-puntaje
     text-align: center
     font-family: 'Source Sans Pro'
