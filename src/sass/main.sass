@@ -158,6 +158,19 @@ tr
     align-items: center
     justify-content: center
 
-@each $size in 100 150 200
+@each $size in 50 100 150 200
     .size-fixer-#{$size}
         width: $size
+
+.queen-images
+    position: relative
+    &:before
+        content: ''
+        position: absolute
+        top: 0
+        right: 0
+        bottom: 0
+        left: 0
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPybe7vvkL1UHGD5GJjuVrUN5SaZTeh_ORccWZHWo5HoTZ7g4x)
+        background-size: $chess_cell_size $chess_cell_size
+        opacity: 0.5
