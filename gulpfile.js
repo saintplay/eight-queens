@@ -15,7 +15,7 @@ gulp.task('start-coding', ['sass'], function() {
 
     gulp.watch('src/sass/main.sass', ['sass']);
     gulp.watch('src/pug/index.pug', ['pug']);
-    gulp.watch('src/coffee/main.cofee', ['cofee']);
+    gulp.watch('src/coffee/main.coffee', ['coffee']);
     gulp.watch('dist/index.html').on('change', browserSync.reload);  
     gulp.watch('dist/js/main.js').on('change', browserSync.reload);
 });
@@ -35,10 +35,10 @@ gulp.task('sass', function(){
 });
 
 gulp.task('coffee', function() {
-  return gulp.src('./src/coffee/main.coffee')
+  return gulp.src('src/coffee/main.coffee')
     .pipe(coffee({bare: true}))
     .pipe(uglify())
-    .pipe(gulp.dest('dist/js/main.js'));
+    .pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('pug', function buildHTML() {
