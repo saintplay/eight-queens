@@ -1,12 +1,13 @@
 const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
-const autoprefixer = require('gulp-autoprefixer');
-const sass = require('gulp-sass');
 const pug = require('gulp-pug');
-const coffee = require('gulp-coffee');
+const sass = require('gulp-sass');
+var ts = require("gulp-typescript");
 const uglify = require('gulp-uglify');
+var tsProject = ts.createProject("tsconfig.json");
+const autoprefixer = require('gulp-autoprefixer');
+const browserSync = require('browser-sync').create();
 
-gulp.task('start-coding', ['sass'], function() {
+gulp.task('go', ['compile'], function() {
     browserSync.init({
         server: 'dist',
         notify: false,
@@ -15,9 +16,8 @@ gulp.task('start-coding', ['sass'], function() {
 
     gulp.watch('src/sass/main.sass', ['sass']);
     gulp.watch('src/pug/index.pug', ['pug']);
-    gulp.watch('src/coffee/main.coffee', ['coffee']);
-    gulp.watch('dist/index.html').on('change', browserSync.reload);  
-    gulp.watch('dist/js/main.js').on('change', browserSync.reload);
+    gulp.watch('src/typescript/*.ts', ['ts']);
+    gulp.watch(['dist/js/*.js', 'dist/index.html']).on('change', browserSync.reload);  
 });
 
 gulp.task('sass', function(){
@@ -34,9 +34,9 @@ gulp.task('sass', function(){
         .pipe(browserSync.stream());
 });
 
-gulp.task('coffee', function() {
-  return gulp.src('src/coffee/main.coffee')
-    .pipe(coffee({bare: true}))
+gulp.task('ts', function() {
+  return tsProject.src()
+    .pipe(tsProject())
     .pipe(uglify())
     .pipe(gulp.dest('dist/js'));
 });
@@ -47,4 +47,5 @@ gulp.task('pug', function buildHTML() {
     .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('default', ['start-coding']);
+gulp.task('compile', ['sass', 'ts', 'pug']);
+gulp.task('default', ['go']);

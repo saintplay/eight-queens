@@ -1,34 +1,25 @@
 {
   "name": "eight-queens",
   "version": "0.0.1-ALPHA",
-  "description": "El famoso puzzle de las 8 reinas, pero deber�s jugar contra un I.A.",
+  "description": "El famoso puzzle de las 8 reinas, pero deberás jugar contra un I.A.",
   "main": "index.js",
   "dependencies": {
-    "autoprefixer": "^7.1.0",
-    "coffeescript": "^1.12.6",
-    "gulp": "^3.9.1",
-    "gulp-coffee": "^2.3.4",
-    "gulp-uglify": "^2.1.2",
-    "node-sass": "^4.5.2",
-    "postcss-cli": "^4.0.0",
-    "pug": "^2.0.0-rc.1"
-  },
-  "devDependencies": {
     "browser-sync": "^2.18.11",
-    "concurrently": "^3.4.0",
+    "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-coffee": "^2.3.4",
     "gulp-pug": "^3.3.0",
     "gulp-sass": "^3.1.0",
-    "nodemon": "^1.11.0"
+    "gulp-typescript": "^3.1.6",
+    "gulp-uglify": "^2.1.2",
+    "pug": "^2.0.0-rc.1",
+    "typescript": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0.45"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "sass-build": "node-sass --include-path sass --output-style compressed src/sass/main.sass src/sass/main.no-prefixed.css && postcss --use autoprefixer -o dist/css/main.css src/sass/main.no-prefixed.css && rm src/sass/main.no-prefixed.css",
-    "pug-build": "pug --out dist/ src/pug/index.pug",
-    "sass-watch": "nodemon -e sass -x \"npm run sass-build\"",
-    "pug-watch": "nodemon -e pug -x \"npm run pug-build\"",
-    "build-all": "concurrently \"npm run pug-build\" \"npm run sass-build\"",
-    "start-coding": "concurrently --kill-others \"browser-sync start --server --startPath dist --files dist/index.html dist/css/main.css --no-notify --no-ui\" \"nodemon -e pug,sass -x \\\"npm run build-all\\\""
+    "go": "gulp go"
   },
   "repository": {
     "type": "git",
