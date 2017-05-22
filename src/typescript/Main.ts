@@ -42,11 +42,13 @@ namespace Application {
 
         _$.rollback_button.on('click', function() {
             _$.rollback_button.hide();
+            $('#human-box .rb-status').addClass('rb-used');
         });
 
         _$.restart_button.on('click', function() {
             _$.rollback_button.hide();
             $('td').removeClass("queen-images");
+            $('#human-box .rb-status').removeClass('rb-used');
             _$.rollback_button.show();
         });
 

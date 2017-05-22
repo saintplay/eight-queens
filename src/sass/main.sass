@@ -9,7 +9,7 @@ $black: #3B3B3B
 
 // Tamanios
 $hero_height: 240px
-$stats_height: 148px
+$stats_height: 165px
 $roulette_size: 100px
 
 $chess_cell_size: 75px
@@ -99,6 +99,9 @@ html, body
     text-align: center
     vertical-align: middle
 
+#play-button
+    color: $white
+
 #controls-container
     @include zIndex(20)
     height: 80px
@@ -119,7 +122,7 @@ html, body
     font-family: $sans-base
 #time-counter
     font-size: 3em
-    color: $turquoise
+    color: $white
     font-weight: 300
 #time-unit
     font-size: 1.2em
@@ -176,3 +179,8 @@ tr
         background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPybe7vvkL1UHGD5GJjuVrUN5SaZTeh_ORccWZHWo5HoTZ7g4x)
         background-size: $chess_cell_size $chess_cell_size
         opacity: 0.5
+
+.rb-status
+    color: $fuchsia
+.rb-used
+        color: $gray
