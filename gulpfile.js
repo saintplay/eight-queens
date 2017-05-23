@@ -1,10 +1,11 @@
 const gulp = require('gulp');
 const pug = require('gulp-pug');
 const sass = require('gulp-sass');
-var ts = require("gulp-typescript");
+const ts = require("gulp-typescript");
 const uglify = require('gulp-uglify');
-var tsProject = ts.createProject("tsconfig.json");
+const sourcemaps = require('gulp-sourcemaps');
 const autoprefixer = require('gulp-autoprefixer');
+const tsProject = ts.createProject("tsconfig.json");
 const browserSync = require('browser-sync').create();
 
 gulp.task('go', ['compile'], function() {
@@ -17,6 +18,19 @@ gulp.task('go', ['compile'], function() {
     gulp.watch('src/sass/main.sass', ['sass']);
     gulp.watch('src/pug/index.pug', ['pug']);
     gulp.watch('src/typescript/*.ts', ['ts']);
+    gulp.watch(['dist/js/*.js', 'dist/index.html']).on('change', browserSync.reload);  
+});
+
+gulp.task('go-debug', ['compile-debug'], function() {
+    browserSync.init({
+        server: 'dist',
+        notify: false,
+        ui: false
+    });
+
+    gulp.watch('src/sass/main.sass', ['sass']);
+    gulp.watch('src/pug/index.pug', ['pug']);
+    gulp.watch('src/typescript/*.ts', ['ts-debug']);
     gulp.watch(['dist/js/*.js', 'dist/index.html']).on('change', browserSync.reload);  
 });
 
@@ -41,6 +55,15 @@ gulp.task('ts', function() {
     .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('ts-debug', function() {
+  return tsProject.src()
+    .pipe(tsProject())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(uglify())
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('dist/js'));
+});
+
 gulp.task('pug', function buildHTML() {
   return gulp.src('src/pug/index.pug')
     .pipe(pug())
@@ -48,4 +71,5 @@ gulp.task('pug', function buildHTML() {
 });
 
 gulp.task('compile', ['sass', 'ts', 'pug']);
+gulp.task('compile-debug', ['sass', 'ts-debug', 'pug']);
 gulp.task('default', ['go']);

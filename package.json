@@ -13,10 +13,10 @@
     "gulp-typescript": "^3.1.6",
     "gulp-uglify": "^2.1.2",
     "pug": "^2.0.0-rc.1",
-    "typescript": "^2.3.2"
+    "typescript": "^2.3.2",
+    "@types/jquery": "^2.0.45"
   },
   "devDependencies": {
-    "@types/jquery": "^2.0.45"
   },
   "scripts": {
     "go": "gulp go"

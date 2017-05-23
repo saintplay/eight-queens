@@ -2,14 +2,17 @@
 
 namespace Application {
 
-    export enum Turno {
-        JugadorA = 0,
-        JugadorB
-    }
-
     export class Tablero {
         public filas: number = 8;
         public columnas: number = 8;
-        public turno: Turno;
+
+        ObtenerPuntaje(): number {
+            let puntaje: number = 0;
+            return puntaje;
+        }
+
+        finalizoJuego(profundidad: number, puntaje: number): boolean {
+            return false;
+        }
     }
 }

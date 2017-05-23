@@ -1,34 +1,34 @@
 /// <reference path="Globals.ts" />
+/// <reference path="Turno.ts" />
 /// <reference path="Tablero.ts" />
-/// <reference path="TimeController.ts" />
+/// <reference path="AlphaBetaPruning.ts" />
 /// <reference path="Jugador.ts" />
+/// <reference path="TimeController.ts" />
 
 namespace Application {
 
     let time_controller: TimeController;
     let tablero: Tablero;
-
+    
     let jugador_a: Jugador;
     let jugador_b: Jugador;
-    let jugador_activo: Jugador;
-    let jugadores: Jugador[] = [jugador_a, jugador_b];
+    let jugadores: Jugador[];
 
     class Juego {
         
         // El unico momento donde no cambiaremos el turno es al comienzo del juego
         static siguienteTurno(cambiarTurno: boolean = true) {
             if (cambiarTurno == true) {
-                if (jugador_activo == jugador_a) {
-                    jugador_activo = jugador_b;
-                } else if (jugador_activo == jugador_b) {
-                    jugador_activo = jugador_a;
-                }
+                turno.cambiar();
             }
-            
+            console.log(turno.jugador_key);
+            let jugador_actual = jugadores[turno.jugador_key];
+            console.log(jugadores);
             // Callbacks: Que función se ejecutara cuando cada jugador termine su turnos
-            TimeController.alAcabarse = jugador_activo.llegaAlLimiteDeTiempo
-                                            .bind(jugador_activo);
-            jugador_activo.empezarTurno();
+            TimeController.alAcabarse = jugador_actual.llegaAlLimiteDeTiempo
+                                        .bind(jugador_actual);
+
+            jugador_actual.empezarTurno();
             time_controller.terminarContador();
             time_controller.empezarContador();
         }
@@ -38,11 +38,15 @@ namespace Application {
          _$.initElements();
         
         time_controller = new TimeController();
-
+        turno = new Turno();
+        abp = new AlphaBetaPrunning();
+        
         jugador_a = new Jugador('#human-icono');
         jugador_b = new Jugador('#robot-icono');
+        jugadores = [jugador_a, jugador_b];
+
         jugador_b.EsIA = true;
-        jugador_activo = jugador_a;
+        turno.jugador_key = JugadorKey.JugadorA;
 
         // Callbacks: Que función se ejecutara cuando cada jugador termine su turnos
         jugador_a.alTerminar = Juego.siguienteTurno;
