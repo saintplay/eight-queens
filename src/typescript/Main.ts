@@ -1,43 +1,58 @@
-/// <reference path="globals.ts" />
-/// <reference path="Jugador.ts" />
+/// <reference path="Globals.ts" />
+/// <reference path="Tablero.ts" />
 /// <reference path="TimeController.ts" />
+/// <reference path="Jugador.ts" />
 
 namespace Application {
 
     let time_controller: TimeController;
+    let tablero: Tablero;
+
     let jugador_a: Jugador;
     let jugador_b: Jugador;
     let jugador_activo: Jugador;
+    let jugadores: Jugador[] = [jugador_a, jugador_b];
 
-    function cambiarDeTurno() {
-        if (jugador_activo == jugador_a) {
-            jugador_activo = jugador_b;
-        } else if (jugador_activo == jugador_b) {
-            jugador_activo = jugador_a;
+    class Juego {
+        
+        // El unico momento donde no cambiaremos el turno es al comienzo del juego
+        static siguienteTurno(cambiarTurno: boolean = true) {
+            if (cambiarTurno == true) {
+                if (jugador_activo == jugador_a) {
+                    jugador_activo = jugador_b;
+                } else if (jugador_activo == jugador_b) {
+                    jugador_activo = jugador_a;
+                }
+            }
+            
+            // Callbacks: Que función se ejecutara cuando cada jugador termine su turnos
+            TimeController.alAcabarse = jugador_activo.llegaAlLimiteDeTiempo
+                                            .bind(jugador_activo);
+            jugador_activo.empezarTurno();
+            time_controller.terminarContador();
+            time_controller.empezarContador();
         }
-
-        jugador_activo.empezarTurno();
-        TimeController.alAcabarse = jugador_activo.llegaAlLimiteDeTiempo.bind(jugador_activo);
-        time_controller.terminarContador();
-        time_controller.empezarContador();
     }
 
     $(function() {
-        jugador_a = new Jugador('#human-icono');
-        jugador_b = new Jugador('#robot-icono');
-        jugador_activo = jugador_a;
-        jugador_activo.empezarTurno();        
-
-        jugador_a.alTerminar = cambiarDeTurno;
-        jugador_b.alTerminar = cambiarDeTurno;
-
-        time_controller = new TimeController();
-        TimeController.alAcabarse = jugador_activo.llegaAlLimiteDeTiempo.bind(jugador_activo);
-
          _$.initElements();
         
+        time_controller = new TimeController();
+
+        jugador_a = new Jugador('#human-icono');
+        jugador_b = new Jugador('#robot-icono');
+        jugador_b.EsIA = true;
+        jugador_activo = jugador_a;
+
+        // Callbacks: Que función se ejecutara cuando cada jugador termine su turnos
+        jugador_a.alTerminar = Juego.siguienteTurno;
+        jugador_b.alTerminar = Juego.siguienteTurno;
+
         _$.play_button.on('click', function() {
             time_controller.empezarContador();
+
+            // Ejecutamos el siguiente turno para empezar el juego
+            Juego.siguienteTurno(false);  
         });
 
         _$.rollback_button.on('click', function() {

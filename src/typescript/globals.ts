@@ -13,4 +13,15 @@ namespace Application {
             _$.time_counter = $('#time-counter');
         }
     }
+
+    export class Puntajes {
+        static FIN_TIEMPO: number = -5;
+        static JUGADA_CORRECTA: number = 10;
+        static JUGADA_INCORRECTA: number = -5;
+        static USAR_ROLLBACK: number = 0;
+    }
+
+    export class Globales {
+        static NUMERO_JUGADORES: number = 2;
+    }
 }

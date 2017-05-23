@@ -1,31 +1,37 @@
-/// <reference path="globals.ts" />
+/// <reference path="Globals.ts" />
 
 namespace Application {
-    export class Jugador {
-        private _puntos: number;
-        static readonly PUNTOS_DESC_TIEMPO = 5;
-        private _icono: JQuery;
 
-        get Puntos() {
-            return this._puntos;
+    export class Jugador {
+        private _icono: JQuery;
+        private _es_ia: boolean = false;
+
+        public puntos: number = 0;
+
+        get EsIA() {
+            return this._es_ia;
         }
-        set Puntos(new_puntos: number) {
-            this._puntos = new_puntos;
+
+        set EsIA(new_es_ia: boolean) {
+            this._es_ia = new_es_ia;
         }
 
         alTerminar: Function;
 
         constructor(new_icon: string) {
-            this._puntos = 0;
             this._icono = $(new_icon);
         }
 
         empezarTurno() {
             this._icono.addClass('jugador-activo');
+
+            if (this._es_ia) {
+                alert('Soy una maquina');
+            }
         }
 
         llegaAlLimiteDeTiempo() {
-            this._puntos -= Jugador.PUNTOS_DESC_TIEMPO;
+            this.puntos -= Puntajes.FIN_TIEMPO;
             this.terminaTurno();
         }
 
