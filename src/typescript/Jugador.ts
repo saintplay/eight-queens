@@ -1,4 +1,5 @@
 /// <reference path="Globals.ts" />
+/// <reference path="AlphaBetaPruning.ts" />
 
 namespace Application {
 
@@ -26,7 +27,8 @@ namespace Application {
             this._icono.addClass('jugador-activo');
 
             if (this._es_ia) {
-                alert('Soy una maquina');
+                let nodo: Nodo =  abp.mejorJugada(tablero, 8, Globales.MENOS_INFINO, Globales.MAS_INFINITO);
+                tablero.insertarReina(nodo.casillero);
             }
         }
 

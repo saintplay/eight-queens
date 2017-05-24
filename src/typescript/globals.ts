@@ -15,13 +15,22 @@ namespace Application {
     }
 
     export class Puntajes {
-        static FIN_TIEMPO: number = -5;
-        static JUGADA_CORRECTA: number = 10;
+        static FIN_TIEMPO: number = 0;
+        static JUGADA_CORRECTA: number = +10;
         static JUGADA_INCORRECTA: number = -5;
         static USAR_ROLLBACK: number = 0;
     }
 
     export class Globales {
         static NUMERO_JUGADORES: number = 2;
+        static TAMANIO_DE_TABLERO: number = 8;
+        static readonly MAS_INFINITO: number = +1000;
+        static readonly MENOS_INFINO: number = -1000;
+    }
+
+    export enum Utilidad {
+        GanaHumano = -10,
+        Empate = 0,
+        GanaMaquina = +10,
     }
 }

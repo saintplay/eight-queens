@@ -7,9 +7,7 @@
 
 namespace Application {
 
-    let time_controller: TimeController;
-    let tablero: Tablero;
-    
+    let time_controller: TimeController;    
     let jugador_a: Jugador;
     let jugador_b: Jugador;
     let jugadores: Jugador[];
@@ -39,7 +37,7 @@ namespace Application {
         
         time_controller = new TimeController();
         turno = new Turno();
-        abp = new AlphaBetaPrunning();
+        abp = new AlfaBetaPruning();
         
         jugador_a = new Jugador('#human-icono');
         jugador_b = new Jugador('#robot-icono');
