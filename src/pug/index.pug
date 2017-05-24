@@ -19,13 +19,17 @@ html(lang="es")
                         .rb-status="Rollback"
                         .fs-title.active="JUGADOR"
                         #human-icono.icon-human.fs-icon
-                        .fs-puntaje="30pts"
+                        .fs-puntaje
+                            span.puntaje-value="0"
+                            span="pts"
                     .size-fixer-200
                     #robot-box.player-box
                         .rb-status="Rollback"
                         .fs-title="MAQUINA"
                         #robot-icono.icon-robot.fs-icon
-                        .fs-puntaje="20pts"
+                        .fs-puntaje
+                            span.puntaje-value="0"
+                            span="pts"
             #roulette-container.flex-center
                 #play-button= "JUGAR"
             #controls-container.centered-container.flex-container

@@ -44,6 +44,22 @@ namespace Application {
             return this.disponibles;
         }
 
+        reinaEsValidaEn(casillero: Casillero) {
+            for (let i = 0; i < this.insertadas.length; i++) {
+
+                if (this.insertadas[i].columna == casillero.columna)
+                    return false;
+                
+                if (this.insertadas[i].fila == casillero.fila)
+                    return false;
+
+                if (Math.abs(this.insertadas[i].fila - casillero.fila) == Math.abs(this.insertadas[i].columna - casillero.columna))
+                    return false;
+            }
+
+            return true;
+        }
+
         insertarReina(casillero: Casillero) {
             for (let i = 0; i < this.disponibles.length; i++) {
 
