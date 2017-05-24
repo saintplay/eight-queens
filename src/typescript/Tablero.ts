@@ -98,6 +98,14 @@ namespace Application {
 
             return tablero_copia;
         }
+
+        mostrarDisponibles() {
+            $('.casilla-disponible').removeClass('casilla-disponible');
+
+            for (let casillero of this.disponibles) {
+                 $('td[fila=' + casillero.fila+'][columna=' + casillero.columna + ']').addClass('casilla-disponible');
+            }
+        }
     }
 
     export let tablero: Tablero;

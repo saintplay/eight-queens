@@ -16,6 +16,8 @@ namespace Application {
         
         // El unico momento donde no cambiaremos el turno es al comienzo del juego
         static siguienteTurno(cambiarTurno: boolean = true) {
+            tablero.mostrarDisponibles();
+            
             if (cambiarTurno == true) {
                 turno.cambiar();
             }
@@ -75,7 +77,7 @@ namespace Application {
             let fila: number =  parseInt($(this).attr('fila'));
             let columna: number =  parseInt($(this).attr('columna'));
             tablero.insertarReina(new Casillero(fila, columna));
-            console.log(tablero);
+            jugador_a.terminaTurno();
         })
 
     });

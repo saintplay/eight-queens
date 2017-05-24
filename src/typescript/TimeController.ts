@@ -5,7 +5,7 @@ namespace Application {
         static $time_counter: JQuery;
         private _interval_handle: number = null;
         private _time: number;
-        static readonly SEGUNDOS = 5;
+        static readonly SEGUNDOS = 10;
         static readonly TIEMPO_FIN = -1; // Vamos a contar al cero como un segundo más
         static alAcabarse: Function;
 
