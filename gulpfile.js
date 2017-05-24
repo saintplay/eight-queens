@@ -25,7 +25,8 @@ gulp.task('go-debug', ['compile-debug'], function() {
     browserSync.init({
         server: 'dist',
         notify: false,
-        ui: false
+        ui: false,
+        open: false
     });
 
     gulp.watch('src/sass/main.sass', ['sass']);
@@ -56,10 +57,12 @@ gulp.task('ts', function() {
 });
 
 gulp.task('ts-debug', function() {
-  return tsProject.src()
+    var tsResult = tsProject.src()
     .pipe(tsProject())
     .pipe(sourcemaps.init({loadMaps: true}))
-    .pipe(uglify())
+    
+    return tsResult
+    //.pipe(uglify())
     .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('dist/js'));
 });

@@ -45,7 +45,7 @@ namespace Application {
         }
         
         static TerminarTurnoDeRobot() {
-            if (tablero.esTerminal) {
+            if (tablero.esTerminal()) {
                 Juego.PierdeHumano();
             }
             else {

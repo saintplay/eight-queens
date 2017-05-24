@@ -1,15 +1,25 @@
 {
-    // Use IntelliSense to learn about possible Node.js debug attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "request": "launch",
             "type": "chrome",
-            "name": "Debug 8-queens",
-            "file": "${workspaceRoot}/dist/index.html",
-            "sourceMaps": true
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:3000/",
+            "sourceMaps": true,
+            "webRoot": ".",
+            "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "sourceMapPathOverrides": {
+            "webpack:///./~/*": "${workspaceRoot}/node_modules/*",
+            "webpack:///./src/*": "${workspaceRoot}/src/*"
+            }
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}"
         }
     ]
 }
