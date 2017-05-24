@@ -39,6 +39,6 @@ html(lang="es")
                     each fila in [1, 2, 3, 4, 5, 6, 7, 8]
                         tr
                             each columna in [1, 2, 3, 4, 5, 6, 7, 8]
-                                td
+                                td(fila=(fila-1) columna=(columna-1))
         script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
         script(type="text/javascript" src="js/main.js")

@@ -19,10 +19,11 @@ namespace Application {
         }
         
         cambiar() {
-            if (this._jugador_actual_key + 1 == Globales.NUMERO_JUGADORES)
+            if (this._jugador_actual_key + 1 == Globales.NUMERO_JUGADORES) {
                 this._jugador_actual_key
-            
-            this._jugador_actual_key++;
+            } else {
+                this._jugador_actual_key++;
+            }
         }
     }
 

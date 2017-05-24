@@ -23,14 +23,15 @@ namespace Application {
             let valor: Nodo = new Nodo(Globales.MENOS_INFINO);
 
             for (let disponible of tablero.ObtenerDisponibles()) {
-                let tablero_copia: Tablero = (<any>Object).assign({}, tablero);
-
+                //let tablero_copia: Tablero = (<any>Object).assign({}, tablero);
+                let tablero_copia: Tablero = tablero.hacerCopia();
                 tablero_copia.insertarReina(disponible);
 
                 let minimo_abajo = this.peorJugada(tablero_copia, profundidad - 1, alfa, beta)
 
                 valor.utilidad = Math.max(valor.utilidad, minimo_abajo.utilidad);
-
+                valor.casillero = disponible;
+                
                 if (valor.utilidad >= beta) {
                     return valor;
                 }
@@ -50,14 +51,15 @@ namespace Application {
 
             let valor: Nodo = new Nodo(Globales.MAS_INFINITO);
 
-
-            for (let casillero of tablero.ObtenerDisponibles()) {
-                let tablero_copia: Tablero = (<any>Object).assign({}, tablero);
+            for (let disponible of tablero.ObtenerDisponibles()) {
+                //let tablero_copia: Tablero = (<any>Object).assign({}, tablero);
+                let tablero_copia: Tablero = $.extend(true, {}, tablero);
+                tablero_copia.insertarReina(disponible);
 
                 let maximo_abajo: Nodo = this.mejorJugada(tablero_copia, profundidad - 1, alfa, beta)
 
                 valor.utilidad = Math.min(valor.utilidad, maximo_abajo.utilidad);
-                valor.casillero = casillero;
+                valor.casillero = disponible;
 
                 if (valor.utilidad <= alfa) {
                     return valor;

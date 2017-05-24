@@ -19,16 +19,14 @@ namespace Application {
             if (cambiarTurno == true) {
                 turno.cambiar();
             }
-            console.log(turno.jugador_key);
-            let jugador_actual = jugadores[turno.jugador_key];
-            console.log(jugadores);
+            let jugador_actual: Jugador = jugadores[turno.jugador_key];
             // Callbacks: Que función se ejecutara cuando cada jugador termine su turnos
             TimeController.alAcabarse = jugador_actual.llegaAlLimiteDeTiempo
                                         .bind(jugador_actual);
-
-            jugador_actual.empezarTurno();
+            
             time_controller.terminarContador();
             time_controller.empezarContador();
+            jugador_actual.empezarTurno();
         }
     }
 
@@ -38,6 +36,9 @@ namespace Application {
         time_controller = new TimeController();
         turno = new Turno();
         abp = new AlfaBetaPruning();
+
+        tablero = new Tablero();
+        tablero.inicializarDisponibles();
         
         jugador_a = new Jugador('#human-icono');
         jugador_b = new Jugador('#robot-icono');
@@ -71,6 +72,10 @@ namespace Application {
 
         $('td').on('click', function(){
             $(this).addClass('queen-images');
+            let fila: number =  parseInt($(this).attr('fila'));
+            let columna: number =  parseInt($(this).attr('columna'));
+            tablero.insertarReina(new Casillero(fila, columna));
+            console.log(tablero);
         })
 
     });

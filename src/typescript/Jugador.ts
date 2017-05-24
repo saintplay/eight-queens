@@ -29,6 +29,7 @@ namespace Application {
             if (this._es_ia) {
                 let nodo: Nodo =  abp.mejorJugada(tablero, 8, Globales.MENOS_INFINO, Globales.MAS_INFINITO);
                 tablero.insertarReina(nodo.casillero);
+                $('td[fila='+nodo.casillero.fila+'][columna='+nodo.casillero.columna+']').addClass('queen-images');
             }
         }
 
