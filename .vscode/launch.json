@@ -4,15 +4,10 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Debugear typescript",
             "url": "http://localhost:3000/",
-            "sourceMaps": true,
-            "webRoot": ".",
-            "userDataDir": "${workspaceRoot}/.vscode/chrome",
-            "sourceMapPathOverrides": {
-            "webpack:///./~/*": "${workspaceRoot}/node_modules/*",
-            "webpack:///./src/*": "${workspaceRoot}/src/*"
-            }
+            "webRoot": "${workspaceRoot}",
+            "sourceMaps": true
         },
         {
             "type": "chrome",

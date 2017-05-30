@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const run = require('gulp-run');
 const pug = require('gulp-pug');
 const sass = require('gulp-sass');
 const ts = require("gulp-typescript");
@@ -21,20 +22,6 @@ gulp.task('go', ['compile'], function() {
     gulp.watch(['dist/js/*.js', 'dist/index.html']).on('change', browserSync.reload);  
 });
 
-gulp.task('go-debug', ['compile-debug'], function() {
-    browserSync.init({
-        server: 'dist',
-        notify: false,
-        ui: false,
-        open: false
-    });
-
-    gulp.watch('src/sass/main.sass', ['sass']);
-    gulp.watch('src/pug/index.pug', ['pug']);
-    gulp.watch('src/typescript/*.ts', ['ts-debug']);
-    gulp.watch(['dist/js/*.js', 'dist/index.html']).on('change', browserSync.reload);  
-});
-
 gulp.task('sass', function(){
     return gulp.src('src/sass/main.sass')
         .pipe(sass({
@@ -50,21 +37,7 @@ gulp.task('sass', function(){
 });
 
 gulp.task('ts', function() {
-  return tsProject.src()
-    .pipe(tsProject())
-    .pipe(uglify())
-    .pipe(gulp.dest('dist/js'));
-});
-
-gulp.task('ts-debug', function() {
-    var tsResult = tsProject.src()
-    .pipe(tsProject())
-    .pipe(sourcemaps.init({loadMaps: true}))
-    
-    return tsResult
-    //.pipe(uglify())
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest('dist/js'));
+  return run('webpack --progress --config=./webpack.config.js').exec();
 });
 
 gulp.task('pug', function buildHTML() {
@@ -74,5 +47,4 @@ gulp.task('pug', function buildHTML() {
 });
 
 gulp.task('compile', ['sass', 'ts', 'pug']);
-gulp.task('compile-debug', ['sass', 'ts-debug', 'pug']);
 gulp.task('default', ['go']);
