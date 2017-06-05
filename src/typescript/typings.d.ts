@@ -1,0 +1,1 @@
+export function swal(mensaje: string): any;

@@ -1,3 +1,5 @@
+/// <reference path="typings.d.ts" />
+
 import { _$, Globales, Puntajes } from "./Globals";
 import { Turno, JugadorKey } from "./Turno";
 import { Tablero, Casillero } from "./Tablero";
@@ -36,12 +38,12 @@ class Juego {
     }
 
     static PierdeHumano() {
-        alert('Perdiste!!');
+        swal('Perdiste!!');
         Juego.DetenerJuego();
     }
 
     static GanaHumano() {
-        alert('Has Ganado!!');
+        swal('Has Ganado!!');
         Juego.DetenerJuego();
     }
     
