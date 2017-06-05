@@ -1,5 +1,3 @@
-/// <reference path="typings.d.ts" />
-
 import { _$, Globales, Puntajes } from "./Globals";
 import { Turno, JugadorKey } from "./Turno";
 import { Tablero, Casillero } from "./Tablero";
@@ -7,13 +5,14 @@ import { AlfaBetaPruning } from "./AlfaBetaPruning";
 import { Jugador } from "./Jugador";
 import { TimeController } from "./TimeController";
 
-let time_controller: TimeController;    
+let time_controller: TimeController;
 let jugador_a: Jugador;
 let jugador_b: Jugador;
 let jugadores: Jugador[];
 
 interface Window { turno: Turno; abp: AlfaBetaPruning; tablero: Tablero; }
 declare var window: Window;
+declare var swal: Function;
 
 class Juego {
     
@@ -38,12 +37,12 @@ class Juego {
     }
 
     static PierdeHumano() {
-        alert('Perdiste!!');
+        swal('Perdiste!!');
         Juego.DetenerJuego();
     }
 
     static GanaHumano() {
-        alert('Has Ganado!!');
+        swal('Has Ganado!!');
         Juego.DetenerJuego();
     }
     
@@ -134,6 +133,7 @@ $(function() {
         }
         else {
             jugador_a.puntos += Puntajes.JUGADA_INCORRECTA;
+            swal('Jugada Incorrecta!');
 
             if (jugador_a.intentos_fallidos + 1 == Globales.NUMERO_INTENTOS_TURNO) {
                 Juego.PierdeHumano();
