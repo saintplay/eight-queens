@@ -38,12 +38,12 @@ class Juego {
     }
 
     static PierdeHumano() {
-        swal('Perdiste!!');
+        alert('Perdiste!!');
         Juego.DetenerJuego();
     }
 
     static GanaHumano() {
-        swal('Has Ganado!!');
+        alert('Has Ganado!!');
         Juego.DetenerJuego();
     }
     
@@ -67,6 +67,7 @@ $(function() {
 
     window.tablero = new Tablero();
     window.tablero.inicializarDisponibles();
+    window.tablero.mostrar_disponibles = false;
     
     jugador_a = new Jugador('#human-icono');
     jugador_b = new Jugador('#robot-icono');
@@ -104,7 +105,15 @@ $(function() {
         _$.rollback_button.show();
     });
 
-    $('td').on('click', function() {
+     _$.ayuda_button.on('click', function() {
+        window.tablero.mostrar_disponibles = true;
+    });
+
+     _$.noayuda_button.on('click', function() {
+        window.tablero.mostrar_disponibles = false;
+    });
+
+    $('#chess-table').on('click', 'td', function() {
         let fila: number =  parseInt($(this).attr('fila'));
         let columna: number =  parseInt($(this).attr('columna'));
         let casillero: Casillero = new Casillero(fila, columna);

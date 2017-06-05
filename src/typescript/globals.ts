@@ -9,6 +9,8 @@ export class _$ {
     static time_counter: JQuery;
     static human_puntaje: JQuery;
     static robot_puntaje: JQuery;
+    static ayuda_button: JQuery;
+    static noayuda_button: JQuery;
 
     static initElements() {
         _$.rollback_button = $('#rollback-button');
@@ -17,6 +19,8 @@ export class _$ {
         _$.time_counter = $('#time-counter');
         _$.human_puntaje = $('#human-box .puntaje-value');
         _$.robot_puntaje = $('#robot-box .puntaje-value');
+        _$.ayuda_button = $('#ayuda-button');
+        _$.noayuda_button = $('#noayuda-button');
     }
 }
 

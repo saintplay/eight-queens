@@ -28,17 +28,21 @@ html(lang="es")
                         .rb-status="Rollback"
                         .fs-title="MAQUINA"
                         #robot-icono.icon-robot.fs-icon
-                        .fs-puntaje
+                        .fs-gpuntaje
                             span.puntaje-value="0"
                             span="pts"
             #roulette-container.flex-center
                 #play-button= "JUGAR"
             #controls-container.centered-container.flex-container
                 #rollback-wrapper.control-wrapper
-                    a#rollback-button="Rollback"
+                    a#rollback-button="Roll"
                 #restart-wrapper.control-wrapper
                     a#restart-button="Reset"
-                .size-fixer-500(style="width: 500px")
+                #ayuda-wrapper.control-wrapper
+                    a#ayuda-button="A"
+                #noayuda-wrapper.control-wrapper
+                    a#noayuda-button="N"
+                .size-fixer-500(style="width: 600px")
             #table-container.centered-container.flex-center
                 table#chess-table
                     each fila in [1, 2, 3, 4, 5, 6, 7, 8]

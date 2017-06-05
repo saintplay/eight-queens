@@ -19,6 +19,7 @@ export class Tablero {
     public columnas: number = Globales.TAMANIO_DE_TABLERO;
     public disponibles: Casillero[] = [];
     public insertadas: Casillero[] = [];
+    public mostrar_disponibles: boolean;
 
     ObtenerUtilidad(): Utilidad {
         // Si hay 8 reinas colocadas
@@ -117,10 +118,12 @@ export class Tablero {
     }
 
     mostrarDisponibles() {
-        $('.casilla-disponible').removeClass('casilla-disponible');
+        if (this.mostrar_disponibles == true) {
+            $('.casilla-disponible').removeClass('casilla-disponible');
 
-        for (let casillero of this.disponibles) {
+            for (let casillero of this.disponibles) {
                 $('td[fila=' + casillero.fila+'][columna=' + casillero.columna + ']').addClass('casilla-disponible');
+            }
         }
     }
 }

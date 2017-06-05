@@ -1,1 +1,1 @@
-export function swal(mensaje: string): any;
+export function swal(mensaje: string): string;
