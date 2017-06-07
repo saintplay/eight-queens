@@ -83,6 +83,8 @@ var _$ = (function () {
         _$.time_counter = $('#time-counter');
         _$.human_puntaje = $('#human-box .puntaje-value');
         _$.robot_puntaje = $('#robot-box .puntaje-value');
+        _$.ayuda_button = $('#ayuda-button');
+        _$.noayuda_button = $('#noayuda-button');
     };
     return _$;
 }());
@@ -368,10 +370,12 @@ var Tablero = (function () {
         return tablero_copia;
     };
     Tablero.prototype.mostrarDisponibles = function () {
-        $('.casilla-disponible').removeClass('casilla-disponible');
-        for (var _i = 0, _a = this.disponibles; _i < _a.length; _i++) {
-            var casillero = _a[_i];
-            $('td[fila=' + casillero.fila + '][columna=' + casillero.columna + ']').addClass('casilla-disponible');
+        if (this.mostrar_disponibles == true) {
+            $('.casilla-disponible').removeClass('casilla-disponible');
+            for (var _i = 0, _a = this.disponibles; _i < _a.length; _i++) {
+                var casillero = _a[_i];
+                $('td[fila=' + casillero.fila + '][columna=' + casillero.columna + ']').addClass('casilla-disponible');
+            }
         }
     };
     return Tablero;
@@ -421,7 +425,7 @@ var TimeController = (function () {
     };
     return TimeController;
 }());
-TimeController.SEGUNDOS = 10;
+TimeController.SEGUNDOS = 30;
 TimeController.TIEMPO_FIN = -1; // Vamos a contar al cero como un segundo más
 exports.TimeController = TimeController;
 
@@ -464,11 +468,11 @@ var Juego = (function () {
         time_controller.terminarContador();
     };
     Juego.PierdeHumano = function () {
-        alert('Perdiste!!');
+        swal('Perdiste!!');
         Juego.DetenerJuego();
     };
     Juego.GanaHumano = function () {
-        alert('Has Ganado!!');
+        swal('Has Ganado!!');
         Juego.DetenerJuego();
     };
     Juego.TerminarTurnoDeRobot = function () {
@@ -488,6 +492,7 @@ $(function () {
     window.abp = new AlfaBetaPruning_1.AlfaBetaPruning();
     window.tablero = new Tablero_1.Tablero();
     window.tablero.inicializarDisponibles();
+    window.tablero.mostrar_disponibles = false;
     jugador_a = new Jugador_1.Jugador('#human-icono');
     jugador_b = new Jugador_1.Jugador('#robot-icono');
     jugadores = [jugador_a, jugador_b];
@@ -517,7 +522,13 @@ $(function () {
         $('#human-box .rb-status').removeClass('rb-used');
         Globals_1._$.rollback_button.show();
     });
-    $('td').on('click', function () {
+    Globals_1._$.ayuda_button.on('click', function () {
+        window.tablero.mostrar_disponibles = true;
+    });
+    Globals_1._$.noayuda_button.on('click', function () {
+        window.tablero.mostrar_disponibles = false;
+    });
+    $('#chess-table').on('click', 'td', function () {
         var fila = parseInt($(this).attr('fila'));
         var columna = parseInt($(this).attr('columna'));
         var casillero = new Tablero_1.Casillero(fila, columna);
@@ -536,6 +547,7 @@ $(function () {
         }
         else {
             jugador_a.puntos += Globals_1.Puntajes.JUGADA_INCORRECTA;
+            swal('Jugada Incorrecta!');
             if (jugador_a.intentos_fallidos + 1 == Globals_1.Globales.NUMERO_INTENTOS_TURNO) {
                 Juego.PierdeHumano();
             }
